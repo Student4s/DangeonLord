@@ -13,6 +13,7 @@ public class Builder : MonoBehaviour
     [SerializeField] private int length;
     [SerializeField] private DungeonRoom[] rooms;
     [SerializeField] private Traps[] traps;
+    [SerializeField] private Traps[] trapsPict;
     [SerializeField] private GameObject grid;
 
     private bool _isBuildTrap = false;
@@ -53,15 +54,16 @@ public class Builder : MonoBehaviour
         {
             Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
             Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
-            Debug.Log(worldPosition);
-            _trap.transform.position = new Vector3(worldPosition.x+1, 2,0);
-           
+            //Debug.Log(worldPosition);
+            _trap.transform.position = new Vector3(worldPosition.x, worldPosition.y,0);
             if (Input.GetMouseButtonDown(0))
             {
                 if(_currentTrapNumber==0)
                     CheckBox.SetChest();
                 
+                
                 var A = Instantiate(traps[_currentTrapNumber], grid.transform);
+                A.GetComponent<Rigidbody2D>().gravityScale = 1;
                 A.transform.position = _trap.transform.position;
                 Destroy(_trap.gameObject);
                 _isBuildTrap = false;
