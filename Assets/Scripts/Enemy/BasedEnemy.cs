@@ -5,15 +5,16 @@ using UnityEngine;
 
 public class BasedEnemy : MonoBehaviour
 {
-    [SerializeField] private float speed;
+    [SerializeField] protected float speed;
+    [SerializeField] protected float hp;
     
-    [SerializeField] private float hp;
+    [SerializeField] protected float attackHpDamage;
+    [SerializeField] protected float attackStaminaDamage;
     
-    [SerializeField] private float attackDamage;
-    [SerializeField] private float attackSpeed;
-    [SerializeField] private float currentTimeBetweenAttack;
-    [SerializeField] private float attackDistance;
-    [SerializeField] private GameObject target;
+    [SerializeField] protected float attackSpeed;
+    [SerializeField] protected float currentTimeBetweenAttack;
+    [SerializeField] protected float attackDistance;
+    [SerializeField] protected GameObject target;
     
  
 
@@ -23,8 +24,6 @@ public class BasedEnemy : MonoBehaviour
         
         if (target!=null)
         {
-            
-            //Debug.Log(Math.Abs(transform.position.x-target.transform.position.x));
             if (Math.Abs(transform.position.x-target.transform.position.x) > attackDistance)
             {
                 transform.position += new Vector3(-speed * Time.fixedDeltaTime, 0, 0); 
@@ -33,7 +32,7 @@ public class BasedEnemy : MonoBehaviour
             {
                 if (currentTimeBetweenAttack <= 0)
                 {
-                    target.GetComponent<Hero>().GetDamage(attackDamage);
+                    target.GetComponent<Hero>().GetDamage(attackHpDamage,attackStaminaDamage);
                     currentTimeBetweenAttack = attackSpeed;
                 }
             }

@@ -263,7 +263,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 15
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -1888,10 +1888,10 @@ TextureImporter:
       trees-trunk-darkbrown_55: 21300110
       trees-trunk-darkbrown_19: 21300038
       trees-trunk-darkbrown_60: 21300120
-      trees-trunk-darkbrown_12: 21300024
       trees-trunk-darkbrown_38: 21300076
-      trees-trunk-darkbrown_8: 21300016
       trees-trunk-darkbrown_28: 21300056
+      trees-trunk-darkbrown_8: 21300016
+      trees-trunk-darkbrown_12: 21300024
       trees-trunk-darkbrown_65: 21300130
       trees-trunk-darkbrown_27: 21300054
       trees-trunk-darkbrown_48: 21300096

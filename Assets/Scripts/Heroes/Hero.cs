@@ -8,10 +8,11 @@ public class Hero : MonoBehaviour
     //Stats
     [SerializeField] private float attackDamage;
     [SerializeField] private float exhaustedAttackDamage;
-    [SerializeField] private float attackSpeed;
+    public float attackSpeed;
     [SerializeField] private float currentTimeBetweenAttack;
     [SerializeField] private float attackDistance;
-    [SerializeField] private GameObject target;
+    [SerializeField] private GameObject currrentTarget;
+    [SerializeField] private List<GameObject> targets;
     private Vector3 _heroPosition;
     
     [SerializeField] private float hp;
@@ -28,6 +29,9 @@ public class Hero : MonoBehaviour
     //Move
     private float _speed;
     [SerializeField] private float walkSpeed;
+    
+    public delegate void Perception(string text, Transform position);
+    public static event Perception Accses;
     void Start()
     {
         CheckBox.ChestOpen1 += Stop;
@@ -50,27 +54,48 @@ public class Hero : MonoBehaviour
         }
 
         currentTimeBetweenAttack -= Time.fixedDeltaTime;
+        
         if (stamina < 0)
-        {
             attackDamage = exhaustedAttackDamage;
-        }
     }
 
     public void Attack(GameObject enemy)
     {
-        target = enemy;
+        targets.Add(enemy);
+        TargetUpdate();
         status = "Fight";
+    }
+
+    public void TargetUpdate()
+    {
+        for (int i = 0; i <= targets.Count; i++)
+        {
+            if (targets[i] == null)
+            {
+                targets.RemoveAt(i);  
+            }
+            else
+            {
+                currrentTarget = targets[i];
+                status = "Fight";
+                break;
+            }
+        }
+        
     }
     void Fight()
     {
-        if (target == null)
-            status = "Walk";
-        
-        if (Math.Abs(transform.position.x- target.transform.position.x)<=attackDistance)
+        if (currrentTarget == null)
+            TargetUpdate();
+
+        if (currrentTarget == null)
+                status = "Walk";
+
+        if (Math.Abs(transform.position.x- currrentTarget.transform.position.x)<=attackDistance)
         {
             if (currentTimeBetweenAttack <= 0)
             {
-                target.GetComponent<BasedEnemy>().GetDamage(attackDamage);
+                currrentTarget.GetComponent<BasedEnemy>().GetDamage(attackDamage);
                 currentTimeBetweenAttack = attackSpeed;
             }
         }
@@ -80,9 +105,10 @@ public class Hero : MonoBehaviour
             stamina -= Time.fixedDeltaTime;
         }
     }
-    public void GetDamage(float damage)
+    public void GetDamage(float hpDamage, float staminaDamage)
     {
-        hp -= damage;
+        hp -= hpDamage;
+        stamina -= staminaDamage;
         if(hp<=0)
             Death();
     }
@@ -96,16 +122,19 @@ public class Hero : MonoBehaviour
 
     void PerceptionCheckAccess()
     {
+        Accses("Perception Check Access", gameObject.transform);
         currentTrapLvl = 0;
         Destroy(currentTrap.gameObject);
         status = "Walk";
+        
     }
     
     public void PerceptionCheck()
     {
         if (perception >= currentTrapLvl)
         {
-            Invoke("PerceptionCheckAccess", 1.0f);
+            //Invoke("PerceptionCheckAccess", 1.0f);
+            PerceptionCheckAccess();
         }
         else
             status = "Walk";
@@ -131,7 +160,7 @@ public class Hero : MonoBehaviour
         _speed = 0;
     }
     
-    public void Death()
+    void Death()
     {
         Destroy(gameObject);
     }
