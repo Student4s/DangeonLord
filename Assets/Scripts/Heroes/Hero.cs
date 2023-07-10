@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Hero : MonoBehaviour
 {
@@ -13,15 +14,12 @@ public class Hero : MonoBehaviour
     [SerializeField] private float attackDistance;
     [SerializeField] private GameObject currrentTarget;
     [SerializeField] private List<GameObject> targets;
-    private Vector3 _heroPosition;
-    
     [SerializeField] private float hp;
     [SerializeField] private float stamina;
-    
     [SerializeField] private float perception;
     [SerializeField] private float currentTrapLvl;
     [SerializeField] private GameObject currentTrap;
-
+    [SerializeField] private Animator animations;
     [SerializeField] private string status;
     
     [SerializeField] private GameObject heroCamera;
@@ -30,13 +28,15 @@ public class Hero : MonoBehaviour
     private float _speed;
     [SerializeField] private float walkSpeed;
     
+    //Delegates
     public delegate void Perception(string text, Transform position);
     public static event Perception Accses;
+    public delegate void GetStats(float perception, float hp, float stamina, float attack);
+    public static event GetStats GetStat;
     void Start()
     {
+        animations.Play("IDLE");
         CheckBox.ChestOpen1 += Stop;
-        status = "Walk";
-        _heroPosition = gameObject.transform.position;
     }
     void FixedUpdate()
     {
@@ -52,7 +52,8 @@ public class Hero : MonoBehaviour
                 Fight();
                 break;
         }
-
+ 
+        animations.SetBool("GetHit",false);
         currentTimeBetweenAttack -= Time.fixedDeltaTime;
         
         if (stamina < 0)
@@ -95,9 +96,13 @@ public class Hero : MonoBehaviour
         {
             if (currentTimeBetweenAttack <= 0)
             {
+                animations.SetBool("Attack",true);
+                animations.SetBool("Walk",false);
                 currrentTarget.GetComponent<BasedEnemy>().GetDamage(attackDamage);
                 currentTimeBetweenAttack = attackSpeed;
             }
+            else
+                animations.SetBool("Attack",false);
         }
         else
         {
@@ -109,6 +114,7 @@ public class Hero : MonoBehaviour
     {
         hp -= hpDamage;
         stamina -= staminaDamage;
+        animations.SetBool("GetHit",true);
         if(hp<=0)
             Death();
     }
@@ -132,16 +138,15 @@ public class Hero : MonoBehaviour
     public void PerceptionCheck()
     {
         if (perception >= currentTrapLvl)
-        {
-            //Invoke("PerceptionCheckAccess", 1.0f);
             PerceptionCheckAccess();
-        }
         else
             status = "Walk";
     }
 
     void Walk()
     {
+        animations.SetBool("Walk",true);
+        animations.SetBool("Attack",false);
         transform.position += new Vector3(_speed * Time.fixedDeltaTime, 0, 0);
         stamina -= Time.fixedDeltaTime;
     }
@@ -157,7 +162,16 @@ public class Hero : MonoBehaviour
     }
     void Stop()
     {
+        animations.SetBool("Walk",false);
+        animations.SetBool("Attack",false);
+        animations.Play("IDLE");
+        status = "Stop";
         _speed = 0;
+    }
+
+    public void Stats()
+    {
+        GetStat(perception, hp, stamina,attackDamage);
     }
     
     void Death()

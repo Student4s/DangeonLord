@@ -43,14 +43,14 @@ public class DefaultMeleeEnemy : BasedEnemy
         animations.SetBool("Walk",true);
     }
 
-    public void GetDamage(float damage)
+    public override void GetDamage(float damage)
     {
         hp -= damage;
         if(hp<=0)
             Death();
     }
 
-    void Death()
+    public override void Death()
     {
         Destroy(gameObject);
     }

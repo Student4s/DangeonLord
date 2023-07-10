@@ -21,6 +21,9 @@ public class BuildCameraMover : MonoBehaviour
             if (_x2 > _x1)
                 cam.transform.Translate(camSpeed * Time.fixedDeltaTime, 0, 0);
         }
+
+        if (cam.transform.position.x <= -1)
+            cam.transform.position = new Vector3(-1,cam.transform.position.y,-10);
     }
 
     private void LateUpdate()

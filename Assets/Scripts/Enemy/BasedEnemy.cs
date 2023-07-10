@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class BasedEnemy : MonoBehaviour
 {
+    [SerializeField] public int price;
+    
+    
     [SerializeField] protected float speed;
     [SerializeField] protected float hp;
     
@@ -39,14 +42,14 @@ public class BasedEnemy : MonoBehaviour
         }
     }
     
-    public void GetDamage(float damage)
+     virtual public void GetDamage(float damage)
     {
         hp -= damage;
         if(hp<=0)
             Death();
     }
 
-    void Death()
+     virtual public void Death()
     {
         Destroy(gameObject);
     }

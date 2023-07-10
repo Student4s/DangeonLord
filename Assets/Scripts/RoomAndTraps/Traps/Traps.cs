@@ -12,11 +12,20 @@ public class Traps : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.collider.GetComponent<Hero>())
+        if (col.collider.CompareTag("Ground"))
         {
-            col.collider.GetComponent<Hero>().GetDamage(hpDamage,staminaDamage);
+            gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+            gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+            gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.GetComponent<Hero>())
+        {
+            col.GetComponent<Hero>().GetDamage(hpDamage,staminaDamage);
             Destroy(gameObject);
         }
-            
     }
 }
