@@ -12,6 +12,11 @@ public class DefaultMeleeEnemy : BasedEnemy
         animations.Play("IDLE");
     }
 
+    private void LateUpdate()
+    {
+        animations.SetBool("GetHit",false);
+    }
+
     void FixedUpdate()
     {
         currentTimeBetweenAttack -= Time.fixedDeltaTime;
@@ -22,6 +27,7 @@ public class DefaultMeleeEnemy : BasedEnemy
             else
                 Attack();
         }
+       
     }
 
     void Attack()
@@ -46,8 +52,14 @@ public class DefaultMeleeEnemy : BasedEnemy
     public override void GetDamage(float damage)
     {
         hp -= damage;
+        animations.SetBool("GetHit",true);
         if(hp<=0)
-            Death();
+        {
+                currentTimeBetweenAttack = 10;
+                animations.SetTrigger("Death");
+                animations.SetBool("Attack",false); 
+                animations.SetBool("Walk",false);
+        }
     }
 
     public override void Death()

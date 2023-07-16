@@ -186,7 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   price: 2
   speed: 2
-  hp: 22
+  hp: 11
   attackHpDamage: 0
   attackStaminaDamage: 0
   attackSpeed: 2

@@ -9,6 +9,8 @@ public class Traps : MonoBehaviour
 
     [SerializeField] private float hpDamage;
     [SerializeField] private float staminaDamage;
+    
+    [SerializeField] private Animator animations;
 
     private void OnCollisionEnter2D(Collision2D col)
     {
@@ -16,16 +18,17 @@ public class Traps : MonoBehaviour
         {
             gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
             gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-            gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+            //gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+        }
+        if (col.collider.GetComponent<Hero>())
+        {
+            col.collider.GetComponent<Hero>().GetDamage(hpDamage,staminaDamage);
+            animations.SetBool("Attack",true);
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
+    public void Death()
     {
-        if (col.GetComponent<Hero>())
-        {
-            col.GetComponent<Hero>().GetDamage(hpDamage,staminaDamage);
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 }

@@ -14,7 +14,6 @@ public class DefaultRangeEnemy : BasedEnemy
         animations.Play("IDLE");
         animations.SetBool("Death",false);
     }
-    
     void FixedUpdate()
     {
         currentTimeBetweenAttack -= Time.fixedDeltaTime;
@@ -48,6 +47,7 @@ public class DefaultRangeEnemy : BasedEnemy
     public override void GetDamage(float damage)
     {
         hp -= damage;
+        animations.SetBool("GetHit",true);
         if (hp <= 0)
         {
             currentTimeBetweenAttack = 10;
@@ -68,5 +68,10 @@ public class DefaultRangeEnemy : BasedEnemy
             target = col.gameObject;
             col.GetComponent<Hero>().Attack(gameObject);
         }
+    }
+
+    private void LateUpdate()
+    {
+        animations.SetBool("GetHit",false);
     }
 }
