@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Feeble : MonoBehaviour
+public class Feeble : Trait
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float hpDebaff;
+    [SerializeField] private float damageDebaff;
+    public override void Use(GameObject hero)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        hero.GetComponent<Hero>().hp -= hpDebaff;
+        hero.GetComponent<Hero>().maxHp -= hpDebaff;
+        hero.GetComponent<Hero>().attackDamage -= damageDebaff;
+        Debug.Log(name);
     }
 }

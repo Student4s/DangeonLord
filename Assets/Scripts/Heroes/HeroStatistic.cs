@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class HeroStatistic : MonoBehaviour
 {
-    [SerializeField] private Text name;
+    //[SerializeField] private Text name;
     [SerializeField] private Text attack;
     [SerializeField] private Text attackSpeed;
     [SerializeField] private Text perception;
@@ -54,7 +54,7 @@ public class HeroStatistic : MonoBehaviour
 
     public void SetTraits(TraitList trits)
     {
-        for (int i = 0; i <= trits.traits.Count; i++)
+        for (int i = 0; i < trits.traits.Count; i++)
             heroTraits.traits[i].text = trits.traits[i].name;
     }
 

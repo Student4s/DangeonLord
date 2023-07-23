@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Survivable : MonoBehaviour
+public class Survivable : Trait
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float hpBaff;
+    public override void Use(GameObject hero)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        hero.GetComponent<Hero>().hp += hpBaff;
+        hero.GetComponent<Hero>().maxHp += hpBaff;
     }
 }

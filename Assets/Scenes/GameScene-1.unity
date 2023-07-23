@@ -16637,6 +16637,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1532567006}
     m_Modifications:
+    - target: {fileID: 1315474362691520402, guid: 0ffc924ec2fdc9b48975c57833b28207, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 93.4
+      objectReference: {fileID: 0}
     - target: {fileID: 1315474363988619292, guid: 0ffc924ec2fdc9b48975c57833b28207, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -16707,7 +16711,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1315474363988619292, guid: 0ffc924ec2fdc9b48975c57833b28207, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 170
+      value: 154.3
       objectReference: {fileID: 0}
     - target: {fileID: 1315474363988619292, guid: 0ffc924ec2fdc9b48975c57833b28207, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -16724,6 +16728,22 @@ PrefabInstance:
     - target: {fileID: 1315474363988619293, guid: 0ffc924ec2fdc9b48975c57833b28207, type: 3}
       propertyPath: m_Name
       value: Hero Stats Panel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1315474363988619293, guid: 0ffc924ec2fdc9b48975c57833b28207, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5003335312489268523, guid: 0ffc924ec2fdc9b48975c57833b28207, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 87.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5003335312489268523, guid: 0ffc924ec2fdc9b48975c57833b28207, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 91.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6764105799105643436, guid: 0ffc924ec2fdc9b48975c57833b28207, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 32.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ffc924ec2fdc9b48975c57833b28207, type: 3}
@@ -27991,9 +28011,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   traits:
   - {fileID: 7704508959083741407, guid: 3563ac20902b738478524144c4e01595, type: 3}
-  - {fileID: 7704508959083741407, guid: 3563ac20902b738478524144c4e01595, type: 3}
-  - {fileID: 7704508959083741407, guid: 3563ac20902b738478524144c4e01595, type: 3}
-  - {fileID: 7704508959083741407, guid: 3563ac20902b738478524144c4e01595, type: 3}
+  - {fileID: 5019658565628686668, guid: 945f1a0c5936289449939b621f081e5e, type: 3}
+  - {fileID: 4632600849495389122, guid: d68458eabe95e9a44a8df1e879d1929f, type: 3}
+  - {fileID: 3916464164965330316, guid: eda6a087a4745ee4193ccb876b486acb, type: 3}
 --- !u!1 &2000292859
 GameObject:
   m_ObjectHideFlags: 0

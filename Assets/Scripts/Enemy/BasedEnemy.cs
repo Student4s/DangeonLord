@@ -6,6 +6,7 @@ using UnityEngine;
 public class BasedEnemy : MonoBehaviour
 {
     [SerializeField] public int price;
+    [SerializeField]private bool canSpawn = true;
     
     
     [SerializeField] protected float speed;
@@ -61,4 +62,15 @@ public class BasedEnemy : MonoBehaviour
             col.GetComponent<Hero>().Attack(gameObject);
         }
     }
+    
+    public bool IsCanSpawn()
+    {
+        return canSpawn;
+    }
+
+    public void ChangeIsCanSpawn(bool state)
+    {
+        canSpawn = state;
+    }
+
 }

@@ -2,17 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Myopic : MonoBehaviour
+public class Myopic : Trait
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private int perceptionDebaff;
+    public override void Use(GameObject hero)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        hero.GetComponent<Hero>().perception -= perceptionDebaff;
     }
 }

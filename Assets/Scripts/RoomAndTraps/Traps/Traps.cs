@@ -12,6 +12,8 @@ public class Traps : MonoBehaviour
     
     [SerializeField] private Animator animations;
 
+    private bool isCanBuild=true;
+
     private void OnCollisionEnter2D(Collision2D col)
     {
         if (col.collider.CompareTag("Ground"))
@@ -25,6 +27,16 @@ public class Traps : MonoBehaviour
             col.collider.GetComponent<Hero>().GetDamage(hpDamage,staminaDamage);
             animations.SetBool("Attack",true);
         }
+    }
+
+    public bool IsCanBuild()
+    {
+       return isCanBuild;
+    }
+
+    public void ChangeIsCanBuild(bool state)
+    {
+        isCanBuild = state;
     }
 
     public void Death()

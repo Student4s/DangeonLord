@@ -69,7 +69,7 @@ public class Builder : MonoBehaviour
         Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
             
         _trap.transform.position = new Vector3(worldPosition.x, worldPosition.y,0);
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0)&&_trap.IsCanBuild())
         {
             if(_currentTrapNumber==0)
                 CheckBox.SetChest();
@@ -96,7 +96,7 @@ public class Builder : MonoBehaviour
         Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
             
         _enemy.transform.position = new Vector3(worldPosition.x, worldPosition.y,0);
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0)&&_enemy.IsCanSpawn())
         {
             BasedEnemy newEnemy = Instantiate(enemys[_currentEnemyNumber], grid.transform);
             newEnemy.GetComponent<Rigidbody2D>().gravityScale = 1;
@@ -104,6 +104,11 @@ public class Builder : MonoBehaviour
             Destroy(_enemy.gameObject);
             _isSpawnEnemy = false;
             ScoreTxtUpdate();
+        }
+        else
+        {
+            if(Input.GetMouseButton(0)&&!_enemy.IsCanSpawn()) 
+                Debug.Log("CantSpawn");
         }
         if (Input.GetMouseButton(1))
         {

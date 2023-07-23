@@ -27,7 +27,6 @@ public class DefaultMeleeEnemy : BasedEnemy
             else
                 Attack();
         }
-       
     }
 
     void Attack()
